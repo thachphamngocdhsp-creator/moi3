@@ -1,0 +1,35 @@
+===========================================================================
+  HƯỚNG DẪN CHỈNH SỬA TỆP HTML / CSS / JS TRANG WEB ENA GREEN CO., LTD
+===========================================================================
+
+Trang web này được xây dựng 100% bằng HTML5, CSS3 và JavaScript thuần (Vanilla JS).
+Không cần cài đặt Node.js hay Build tool phức tạp, bạn có thể chỉnh sửa trực tiếp!
+
+---------------------------------------------------------------------------
+1. SỬA THÔNG TIN CÔNG TY, SỐ ĐIỆN THOẠI, EMAIL, ĐỊA CHỈ:
+   👉 Mở tệp: index.html
+   - Dùng phần mềm ghi chú (Notepad, VS Code) mở file index.html
+   - Tìm từ khóa "info@enagreen.com" hoặc "0987.654.321" để thay đổi.
+
+2. SỬA HOẶC THÊM/XÓA SẢN PHẨM HẠT ĐIỀU & GIA VỊ:
+   👉 Mở tệp: script.js
+   - Tìm mảng "const PRODUCTS = [ ... ]"
+   - Mỗi sản phẩm gồm:
+     {
+       id: "ww180",
+       name: "Nhân Điều Trắng W180",
+       price: 320000,
+       image: "/1.  RAW CASHEW KERNELS/2. WW180.png",
+       description: "..."
+     }
+   - Bạn chỉ cần thay giá bán, tên, mô tả hoặc đường dẫn hình ảnh tùy ý.
+
+3. SỬA MÀU SẮC THƯƠNG HIỆU & PHÔNG CHỮ:
+   👉 Mở tệp: style.css
+   - Ở đầu tệp style.css có phần :root { ... }
+   - Thay đổi các biến màu:
+     --primary: #92400e;       (Màu hạt điều chín)
+     --secondary: #15803d;     (Màu xanh lá cây ENA GREEN)
+
+Chúc bạn quản lý trang web thành công!
+===========================================================================

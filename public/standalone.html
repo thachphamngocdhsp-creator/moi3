@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cửa Hàng Hạt Điều & Nông Sản Bình Phước - Standalone HTML</title>
+  <meta name="description" content="Trang web HTML/CSS/JS đơn giản một tệp tin dễ chỉnh sửa cho cửa hàng hạt điều và trái cây sấy.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌰</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================================
+       CSS TÙY CHỈNH DỄ THAY ĐỔI
+       ========================================================================= */
+    :root {
+      --primary: #92400e;
+      --primary-hover: #78350f;
+      --accent: #d97706;
+      --secondary: #15803d;
+      --dark: #1c1917;
+      --light-bg: #f5f5f4;
+      --white: #ffffff;
+      --gray-border: #e7e5e4;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-family); background-color: var(--light-bg); color: var(--dark); line-height: 1.6; font-size: 15px; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+    .top-bar { background: linear-gradient(to right, #451a03, #78350f); color: #fef3c7; font-size: 12px; padding: 8px 0; font-weight: 500; }
+    .top-bar-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .top-contacts a { color: #fef3c7; font-weight: 600; }
+
+    .main-header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+    .header-flex { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; gap: 16px; flex-wrap: wrap; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { font-size: 28px; background: #fef3c7; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+    .brand-title { font-size: 18px; font-weight: 800; color: var(--primary); display: block; line-height: 1.1; }
+    .brand-sub { font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 1px; }
+
+    .search-box { display: flex; align-items: center; background: var(--light-bg); border: 1px solid var(--gray-border); border-radius: 30px; padding: 4px 12px; width: 100%; max-width: 400px; }
+    .search-box input { border: none; background: transparent; outline: none; padding: 8px; width: 100%; font-size: 14px; }
+    .search-btn { background: none; border: none; cursor: pointer; font-size: 16px; }
+
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .cart-btn { background: #fef3c7; color: var(--primary); border: 1px solid #fde68a; padding: 8px 16px; border-radius: 30px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
+    .cart-btn:hover { background: #fde68a; }
+    .cart-count { background: var(--accent); color: var(--white); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+    .category-nav { background: #fffbe2; border-top: 1px solid #fef3c7; border-bottom: 1px solid #fde68a; padding: 8px 0; }
+    .nav-links { display: flex; gap: 8px; overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
+    .nav-btn { background: transparent; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: var(--dark); cursor: pointer; transition: all 0.2s ease; font-size: 13px; }
+    .nav-btn:hover, .nav-btn.active { background: var(--primary); color: var(--white); }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: transform 0.15s ease, background-color 0.2s ease; }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--secondary); color: var(--white); }
+    .btn-secondary:hover { background: #166534; }
+    .btn-outline { background: var(--white); border: 1px solid var(--gray-border); color: var(--dark); }
+    .btn-outline:hover { background: #f5f5f4; }
+    .full-width { width: 100%; }
+
+    .hero-section { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); padding: 48px 0; border-bottom: 1px solid #fde68a; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; } }
+    .badge { background: var(--accent); color: var(--white); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-block; margin-bottom: 12px; }
+    .hero-text h1 { font-size: 32px; font-weight: 800; color: #451a03; line-height: 1.25; margin-bottom: 16px; }
+    .hero-text p { color: #78350f; margin-bottom: 24px; font-size: 15px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .hero-badges { display: flex; gap: 16px; font-size: 13px; font-weight: 600; color: var(--secondary); flex-wrap: wrap; }
+    .hero-image img { width: 100%; height: 320px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
+
+    .main-content { padding: 48px 16px; }
+    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+    .section-title { font-size: 24px; font-weight: 800; color: var(--primary); }
+    .section-subtitle { color: #78350f; font-size: 14px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+
+    .product-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-border); overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .product-thumb { position: relative; height: 200px; overflow: hidden; }
+    .product-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .product-card:hover .product-thumb img { transform: scale(1.05); }
+    .product-tag { position: absolute; top: 10px; left: 10px; background: var(--accent); color: var(--white); padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .product-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .product-category { font-size: 11px; color: var(--secondary); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+    .product-name { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
+    .product-desc { font-size: 13px; color: #57534e; margin-bottom: 16px; flex: 1; }
+    .product-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+    .price-current { font-size: 18px; font-weight: 800; color: var(--primary); }
+    .price-old { font-size: 13px; color: #a8a29e; text-decoration: line-through; }
+    .product-card-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .contact-section { background: var(--white); padding: 48px 0; border-top: 1px solid var(--gray-border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-info h2 { font-size: 26px; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+    .contact-card { background: #fffbeb; border: 1px solid #fde68a; padding: 24px; border-radius: var(--radius); }
+    .contact-card h3 { font-size: 18px; font-weight: 800; color: #451a03; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--gray-border); outline: none; font-family: inherit; font-size: 14px; }
+
+    .main-footer { background: #1c1917; color: #d6d3d1; padding: 48px 0 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid #292524; }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-bottom { background: #0c0a09; padding: 16px 0; font-size: 12px; }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: var(--white); border-radius: var(--radius); max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; padding: 24px; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: #78716c; }
+
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
+    .cart-overlay.active { display: block; }
+    .cart-drawer { position: fixed; top: 0; right: -400px; width: 100%; max-width: 380px; height: 100%; background: var(--white); z-index: 160; box-shadow: -5px 0 25px rgba(0,0,0,0.15); transition: right 0.3s ease; display: flex; flex-direction: column; }
+    .cart-drawer.active { right: 0; }
+    .cart-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-border); display: flex; justify-content: space-between; align-items: center; }
+    .cart-body { padding: 20px; flex: 1; overflow-y: auto; }
+    .cart-item { display: flex; gap: 12px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-border); }
+    .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+    .cart-item-info { flex: 1; }
+    .qty-btn { background: var(--light-bg); border: 1px solid var(--gray-border); width: 24px; height: 24px; border-radius: 4px; cursor: pointer; }
+    .cart-footer { padding: 20px; border-top: 1px solid var(--gray-border); background: var(--light-bg); display: flex; flex-direction: column; gap: 10px; }
+    .cart-total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .empty-msg { text-align: center; color: #78716c; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <span>🔥 Giảm ngay 10% cho đơn hàng hạt điều từ 1.000.000đ | Miễn phí giao hàng toàn quốc</span>
+      <div class="top-contacts">
+        <a href="tel:0987654321">📞 Hotline: 0987.654.321</a> | 
+        <a href="https://zalo.me/0987654321" target="_blank">💬 Zalo Tư Vấn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="container header-flex">
+      <a href="#" class="logo">
+        <span class="logo-icon">🌰</span>
+        <div class="logo-text">
+          <span class="brand-title">HẠT ĐIỀU BÌNH PHƯỚC</span>
+          <span class="brand-sub">ENA GREEN CO., LTD</span>
+        </div>
+      </a>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="searchProducts()">
+        <button class="search-btn">🔍</button>
+      </div>
+
+      <div class="header-actions">
+        <button class="cart-btn" onclick="toggleCartDrawer()">
+          🛒 Giỏ Hàng <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="category-nav">
+      <div class="container nav-links">
+        <button class="nav-btn active" onclick="filterCategory('all', this)">🏪 Tất Cả Sản Phẩm</button>
+        <button class="nav-btn" onclick="filterCategory('raw_cashew', this)">🌰 Hạt Điều Rang Muối W180-W320</button>
+        <button class="nav-btn" onclick="filterCategory('spiced_cashew', this)">🌶️ Hạt Điều Tẩm Vị</button>
+        <button class="nav-btn" onclick="filterCategory('dried_fruit', this)">🥭 Trái Cây Sấy Dẻo</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="badge">ĐẶC SẢN NÔNG SẢN BÌNH PHƯỚC</span>
+        <h1>Hạt Điều Rang Củi & Trái Cây Sấy Thượng Hạng</h1>
+        <p>Phiên bản HTML/CSS/JS đơn giản một tệp duy nhất - Dễ dàng mở tệp bằng Notepad để thay đổi sản phẩm, số điện thoại và giá bán!</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="document.getElementById('products-section').scrollIntoView({behavior: 'smooth'})">🛍️ Xem Sản Phẩm Ngay</button>
+          <a href="tel:0987654321" class="btn btn-secondary">📞 Gọi Ngay 0987.654.321</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=80" alt="Hạt điều">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS GRID -->
+  <main class="container main-content" id="products-section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Danh Sách Sản Phẩm Nổi Bật</h2>
+        <p class="section-subtitle">Chỉnh sửa trực tiếp trong khối script ở cuối tệp này</p>
+      </div>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3 style="color:#fff; margin-bottom:12px;">🌰 HẠT ĐIỀU BÌNH PHƯỚC</h3>
+        <p style="font-size:13px;">Tệp HTML Standalone đơn giản dán trọn gói HTML + CSS + JS vào 1 file duy nhất.</p>
+      </div>
+      <div>
+        <h4>Liên Hệ</h4>
+        <p style="font-size:13px;">📞 Hotline/Zalo: 0987.654.321<br>🏢 Địa chỉ: Phước Long, Bình Phước</p>
+      </div>
+      <div>
+        <h4>Chỉnh Sửa</h4>
+        <p style="font-size:13px;">Mở file <code>standalone.html</code> bằng Notepad hoặc VS Code để sửa văn bản và sản phẩm.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container flex-between">
+        <p>© 2026 Hạt Điều Bình Phước - Bản HTML Đơn Giản Dễ Chỉnh Sửa</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>🛒 Giỏ Hàng Của Bạn</h3>
+      <button class="modal-close" onclick="toggleCartDrawer()">&times;</button>
+    </div>
+    <div class="cart-body" id="cartItemsList"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Tổng cộng:</span>
+        <strong id="cartTotalPrice">0đ</strong>
+      </div>
+      <button class="btn btn-primary full-width" onclick="alert('Đơn hàng đã được xác nhận thành công!')">✅ Đặt Hàng Ngay</button>
+    </div>
+  </aside>
+
+  <!-- JAVASCRIPT ĐƠN GIẢN NẰM TRONG TỆP -->
+  <script>
+    const PRODUCTS = [
+      {
+        id: "raw-w180",
+        category: "raw_cashew",
+        categoryName: "Hạt Điều Thô",
+        name: "Nhân Điều Thô W180 (King Size Jumbo)",
+        price: 320000,
+        oldPrice: 360000,
+        tag: "Bán Chạy",
+        image: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=80",
+        description: "Cấp hạt lớn nhất W180 trắng mịn nguyên vẹn, béo ngậy đỉnh cao xuất khẩu."
+      },
+      {
+        id: "raw-w240",
+        category: "raw_cashew",
+        categoryName: "Hạt Điều Rang Củi",
+        name: "Hạt Điều Rang Củi Vỏ Lụa W240 A1",
+        price: 280000,
+        oldPrice: 310000,
+        tag: "Đặc Sản",
+        image: "https://images.unsplash.com/photo-1509358211425-24e038063f28?auto=format&fit=crop&w=800&q=80",
+        description: "Hạt điều rang củi vỏ lụa truyền thống Phước Long giòn rụm béo ngậy."
+      },
+      {
+        id: "spiced-garlic",
+        category: "spiced_cashew",
+        categoryName: "Hạt Điều Tẩm Vị",
+        name: "Hạt Điều Tẩm Vị Tỏi Ớt Đậm Đà",
+        price: 185000,
+        oldPrice: 210000,
+        tag: "Nổi Bật",
+        image: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=80",
+        description: "Hạt điều giòn tan áo lớp tỏi ớt cay nhẹ thơm lừng."
+      },
+      {
+        id: "dried-mango",
+        category: "dried_fruit",
+        categoryName: "Trái Cây Sấy Dẻo",
+        name: "Xoài Sấy Dẻo Thượng Hạng 500g",
+        price: 145000,
+        oldPrice: 165000,
+        tag: "Tự Nhiên",
+        image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=80",
+        description: "Xoài sấy dẻo chín cây ngọt thanh chua dịu tự nhiên."
+      }
+    ];
+
+    let cart = [{ product: PRODUCTS[0], quantity: 1 }];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProducts();
+      updateCartUI();
+    });
+
+    function renderProducts(items = PRODUCTS) {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = items.map(p => `
+        <div class="product-card">
+          <div class="product-thumb">
+            <img src="${p.image}" alt="${p.name}">
+            ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
+          </div>
+          <div class="product-body">
+            <span class="product-category">${p.categoryName}</span>
+            <h3 class="product-name">${p.name}</h3>
+            <p class="product-desc">${p.description}</p>
+            <div class="product-price-row">
+              <span class="price-current">${p.price.toLocaleString('vi-VN')}đ</span>
+              ${p.oldPrice ? `<span class="price-old">${p.oldPrice.toLocaleString('vi-VN')}đ</span>` : ''}
+            </div>
+            <button class="btn btn-primary full-width" onclick="addToCart('${p.id}')">🛒 Mua Ngay</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderProducts(cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat));
+    }
+
+    function searchProducts() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      renderProducts(PRODUCTS.filter(p => p.name.toLowerCase().includes(q)));
+    }
+
+    function addToCart(id) {
+      const p = PRODUCTS.find(item => item.id === id);
+      const exist = cart.find(i => i.product.id === id);
+      if (exist) exist.quantity++;
+      else cart.push({ product: p, quantity: 1 });
+      updateCartUI();
+      toggleCartDrawer(true);
+    }
+
+    function updateCartUI() {
+      document.getElementById("cartCount").innerText = cart.reduce((s, i) => s + i.quantity, 0);
+      const totalPrice = cart.reduce((s, i) => s + (i.product.price * i.quantity), 0);
+      document.getElementById("cartTotalPrice").innerText = `${totalPrice.toLocaleString('vi-VN')}đ`;
+
+      const list = document.getElementById("cartItemsList");
+      if (cart.length === 0) {
+        list.innerHTML = `<p class="empty-msg">Giỏ hàng trống</p>`;
+        return;
+      }
+      list.innerHTML = cart.map(i => `
+        <div class="cart-item">
+          <img src="${i.product.image}">
+          <div class="cart-item-info">
+            <h4 class="cart-item-title">${i.product.name}</h4>
+            <div class="cart-item-price">${i.product.price.toLocaleString('vi-VN')}đ x ${i.quantity}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById("cartDrawer");
+      const overlay = document.getElementById("cartOverlay");
+      if (open === true) { drawer.classList.add("active"); overlay.classList.add("active"); }
+      else if (open === false) { drawer.classList.remove("active"); overlay.classList.remove("active"); }
+      else { drawer.classList.toggle("active"); overlay.classList.toggle("active"); }
+    }
+  </script>
+</body>
+</html>
